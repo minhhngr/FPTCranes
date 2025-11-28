@@ -1,2 +1,4 @@
 # FPTCranes
-Practice Data Sciences and Machine Learning and AI
+# PPS
+
+Practices python programming
