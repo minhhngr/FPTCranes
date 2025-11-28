@@ -21,10 +21,10 @@ class Enrollment:
         return self._mark
 
     @mark.setter
-    def set_mark(self, value):
-        if 0 > value > 10:
-            raise InvalidMarkException()
+    def mark(self, value):
+        if not (0 <= value <= 10):
+            raise InvalidMarkException(value)
         self._mark = value
-    
+
     def to_row(self):
         return [self._student_id, self._course_id, self._mark]

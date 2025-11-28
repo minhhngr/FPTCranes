@@ -1,8 +1,8 @@
-from ASM2.models.person import Person
+from models.person import Person
 
 
 class Student(Person):
-    
+
     def __init__(self):
         super().__init__()
         self._major = None
@@ -22,27 +22,44 @@ class Student(Person):
         return self._gpa
 
     @major.setter
-    def set_major(self, value):
+    def major(self, value):
         self._major = value
 
     @year.setter
-    def set_year(self, value):
-        self._year = value
+    def year(self, value):
+        try:
+            self._year = int(value)
+        except Exception:
+            raise ValueError("Years must be number")
 
     @gpa.setter
-    def set_gpa(self, value):
-        self._gpa = value
+    def gpa(self, value):
+        try:
+            self._gpa = float(value)
+        except Exception:
+            raise ValueError("GPA must be number")
 
     def to_row(self):
         return [
-            self.sid, self.name, self.dob, 
-            self.email, self.major, self.year, self.gpa
+            self.sid,
+            self.name,
+            self.dob,
+            self.email,
+            self.major,
+            self.year,
+            self.gpa,
         ]
 
     # Dunder Method #
 
-    def __lt__(self):
-        pass
+    def __str__(self):
+        return f"{self.sid}, {self.name}"
 
-    def __gt__(self):
-        pass
+    def __repr__(self):
+        return f"Person({self.to_row()})"
+    
+    def __lt__(self, other):
+        return self.gpa < other.gpa
+
+    def __gt__(self, other):
+        return self.gpa > other.gpa

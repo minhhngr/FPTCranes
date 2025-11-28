@@ -11,4 +11,4 @@ class Course:
     # Dunder Method #
 
     def __str__(self):
-        pass
+        return f"{self.course_id} - {self.name}"

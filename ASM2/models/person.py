@@ -1,4 +1,5 @@
-from ASM2.models.exceptions import InvalidDateException, InvalidEmailException
+import datetime
+from models.exceptions import InvalidDateException, InvalidEmailException
 
 
 class Person:
@@ -12,11 +13,11 @@ class Person:
     @property
     def sid(self):
         return self._sid
-    
+
     @property
     def email(self):
         return self._email
-    
+
     @property
     def name(self):
         return self._name
@@ -24,35 +25,40 @@ class Person:
     @property
     def dob(self):
         return self._dob
-    
+
     @sid.setter
-    def set_sid(self, value):
+    def sid(self, value):
         self._sid = value
 
     @name.setter
-    def set_name(self, value):
+    def name(self, value):
         self._name = value
 
     @dob.setter
-    def set_dob(self, value):
-        if not value:
-            raise InvalidDateException
+    def dob(self, value):
+        fmt = "%Y-%m-%d"
+        ptime = datetime.datetime.strptime
+        try:
+            result = ptime(value, fmt)
+        except:
+            _ex = ptime("2004-05-12", fmt)
+            raise InvalidDateException(f"Invalid date format should be: {_ex!r}")
         self._dob = value
 
     @email.setter
-    def set_email(self, value):
-        if not value:
-            raise InvalidEmailException
-        self._email = value
-    
+    def email(self, value):
+        _val = str(value).lower()
+        if "@" not in _val or "." not in _val:
+            raise InvalidEmailException("Invalid email format")
+        self._email = _val
+
     def to_row(self):
         return [self.sid, self.name, self.dob, self.email]
 
     # Dunder Method #
 
     def __str__(self):
-        pass
+        return f"{self.sid}, {self.name}"
 
     def __repr__(self):
-        pass
-    
+        return f"Person(sid={self.sid}, name={self.name}, email{self.email}, dob={self.dob})"
