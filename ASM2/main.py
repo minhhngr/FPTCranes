@@ -29,13 +29,16 @@ def show_menu():
 
 
 if __name__ == "__main__":
-    # show_menu()
-    per = Student()
-    per.name = "Lại Gia Lâm"
-    per.dob = "1994-05-06"
-    per.email = "lamgia@example.com"
-    per.sid = "#01"
-    per.major = "Student"
-    per.gpa = 5
-    per.year = 1994
-    print(repr(per))
+    # # show_menu()
+    # per = Student()
+    # per.name = "Lại Gia Lâm"
+    # per.dob = "1994-05-06"
+    # per.email = "lamgia@example.com"
+    # per.sid = "#01"
+    # per.major = "Student"
+    # per.gpa = 5
+    # per.year = 1994
+    # print(repr(per))
+    # print(per.to_row())
+    # from collections import namedtuple
+    # s = namedtuple("Student", ["id", "name", "dob", "email", "major", "year", "gpa"])

@@ -3,11 +3,20 @@ from models.person import Person
 
 class Student(Person):
 
-    def __init__(self):
-        super().__init__()
-        self._major = None
-        self._year = None
-        self._gpa = None
+    def __init__(
+        self,
+        sid=None,
+        name=None,
+        dob="1900-01-01",
+        email="example@org.com",
+        major=None,
+        year=1900,
+        gpa=0.0,
+    ):
+        super().__init__(sid=sid, name=name, dob=dob, email=email)
+        self.major = major
+        self.year = year
+        self.gpa = gpa
 
     @property
     def major(self):
@@ -41,25 +50,25 @@ class Student(Person):
 
     def to_row(self):
         return [
-            self.sid,
-            self.name,
-            self.dob,
-            self.email,
-            self.major,
-            self.year,
-            self.gpa,
+            self._sid,
+            self._name,
+            self._dob,
+            self._email,
+            self._major,
+            self._year,
+            self._gpa,
         ]
 
     # Dunder Method #
 
     def __str__(self):
-        return f"{self.sid}, {self.name}"
+        return f"{self._sid}, {self._name}"
 
     def __repr__(self):
         return f"Person({self.to_row()})"
-    
+
     def __lt__(self, other):
-        return self.gpa < other.gpa
+        return self._gpa < other.gpa
 
     def __gt__(self, other):
-        return self.gpa > other.gpa
+        return self._gpa > other.gpa

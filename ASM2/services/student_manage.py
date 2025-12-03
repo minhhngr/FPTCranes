@@ -1,8 +1,10 @@
-from collections import Counter, defaultdict
+from collections import Counter, defaultdict, namedtuple
 from typing import OrderedDict
 import heapq
 from models.exceptions import DuplicateStudentException, StudentNotFoundException
 from models.student import Student
+
+rows = namedtuple("rows", ("id", "name", "dob", "email", "major", "year", "gpa"))
 
 
 class StudentManager:
@@ -46,14 +48,14 @@ class StudentManager:
         self.by_years[studs.year].remove(studs)
         self.count_major -= 1
 
-    def count(self):
-        pass
-
-    def top_n(self):
-        pass
-
     def save(self):
         pass
 
     def load(self):
+        pass
+
+    def count(self):
+        pass
+
+    def top_n(self):
         pass
