@@ -1,3 +1,5 @@
+from services.student_manage import StudentManager
+from common.config import ProjectPath
 from models.student import Student
 from models.person import Person
 
@@ -28,7 +30,16 @@ def show_menu():
         print(f"{k}. {v}")
 
 
+student_manage = StudentManager()
+
 if __name__ == "__main__":
+    student_manage.load()
+    print(student_manage.count)
+    student_manage.save(str(ProjectPath.DATA_PATH / "data.csv"))
+    # print(student_manage.min_gpa)
+    print(student_manage.search_by_name("Hoàng Văn Lâm"))
+
+    # print(ProjectPath.DATA_PATH)
     # # show_menu()
     # per = Student()
     # per.name = "Lại Gia Lâm"
@@ -42,3 +53,4 @@ if __name__ == "__main__":
     # print(per.to_row())
     # from collections import namedtuple
     # s = namedtuple("Student", ["id", "name", "dob", "email", "major", "year", "gpa"])
+    # show_menu()
