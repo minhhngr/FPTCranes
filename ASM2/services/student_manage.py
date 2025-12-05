@@ -9,10 +9,10 @@ from models.student import Student
 
 
 class StudentManager:
+    _STUDENT_PATH = ProjectPath.DATA_PATH / "students.csv"
     _StudentFields = namedtuple(
         "StudentFields", ("sid", "name", "dob", "email", "major", "year", "gpa")
     )
-    STUDENT_PATH = ProjectPath.DATA_PATH / "example.csv"
 
     def __init__(self):
         self.students = OrderedDict()
@@ -24,6 +24,10 @@ class StudentManager:
     def _is_student_invalid(self, sid):
         if sid not in self.students:
             raise StudentNotFoundException(sid)
+
+    def show(self):
+        for student in self.students.values():
+            print(repr(student))
 
     def search_by_name(self, keyword):
         keyword = keyword.lower()
@@ -59,7 +63,7 @@ class StudentManager:
         self.count_major -= 1
 
     def save(self, path=None):
-        path = path or StudentManager.STUDENT_PATH
+        path = path or StudentManager._STUDENT_PATH
         file_handler.write_csv(
             str(path),
             StudentManager._StudentFields._fields,
@@ -67,7 +71,7 @@ class StudentManager:
         )
 
     def load(self, path=None):
-        path = path or StudentManager.STUDENT_PATH
+        path = path or StudentManager._STUDENT_PATH
         rows = file_handler.read_csv(path, StudentManager._StudentFields._fields)
         for row in rows:
             try:
@@ -85,8 +89,8 @@ class StudentManager:
             except Exception as e:
                 print(f"[WARN] Skip bad row: {e}")
 
-    def count(self):
-        pass
-
-    def top_n(self):
-        pass
+    def top_n(self, n=5, reverse=True):
+        student_value = self.students.values()
+        if reverse:
+            return sorted(student_value, key=lambda x: x.gpa, reverse=True)[:n]
+        return sorted(student_value, key=lambda x: x.gpa)[:n]

@@ -1,3 +1,5 @@
+from services.enrollment_manage import EnrollmentManager
+from services.course_manage import CourseManager
 from services.student_manage import StudentManager
 from common.config import ProjectPath
 from models.student import Student
@@ -31,26 +33,30 @@ def show_menu():
 
 
 student_manage = StudentManager()
+course_manage = CourseManager()
+enrollment_manage = EnrollmentManager()
 
 if __name__ == "__main__":
-    student_manage.load()
-    print(student_manage.count)
-    student_manage.save(str(ProjectPath.DATA_PATH / "data.csv"))
-    # print(student_manage.min_gpa)
-    print(student_manage.search_by_name("Hoàng Văn Lâm"))
-
-    # print(ProjectPath.DATA_PATH)
-    # # show_menu()
-    # per = Student()
-    # per.name = "Lại Gia Lâm"
-    # per.dob = "1994-05-06"
-    # per.email = "lamgia@example.com"
-    # per.sid = "#01"
-    # per.major = "Student"
-    # per.gpa = 5
-    # per.year = 1994
-    # print(repr(per))
-    # print(per.to_row())
-    # from collections import namedtuple
-    # s = namedtuple("Student", ["id", "name", "dob", "email", "major", "year", "gpa"])
-    # show_menu()
+    while True:
+        choice = input("Input your choice: ")
+        if choice == "0":
+            break
+        elif choice == "1":
+            student_manage.load()
+            course_manage.load()
+            enrollment_manage.load()
+        elif choice == "2":
+            student_manage.show()
+        elif choice == "3":
+            pass
+        elif choice == "4":
+            student_manage.remove(input("Student ID: "))
+        elif choice == "5":
+            pass
+        elif choice == "6":
+            pass
+        elif choice == "7":
+            for s in student_manage.top_n():
+                print(s.to_row())
+        else:
+            print("Invalid your input, please input again")

@@ -65,7 +65,7 @@ class Student(Person):
         return f"{self._sid}, {self._name}"
 
     def __repr__(self):
-        return f"Person({self.to_row()})"
+        return f"Student({", ".join(str(r) for r in self.to_row())})"
 
     def __lt__(self, other):
         return self._gpa < other.gpa

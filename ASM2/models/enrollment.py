@@ -1,4 +1,4 @@
-from ASM2.models.exceptions import InvalidMarkException
+from models.exceptions import InvalidMarkException
 
 
 class Enrollment:

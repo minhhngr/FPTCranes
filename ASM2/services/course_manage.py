@@ -7,8 +7,8 @@ from models import course
 
 
 class CourseManager:
-    _CoursePath = ProjectPath.DATA_PATH / "course_example.csv"
-    _CourseFields = namedtuple("CourseFields", ["id", "name", "credit"])
+    _COURSE_PATH = ProjectPath.DATA_PATH / "courses.csv"
+    _CourseFields = namedtuple("CourseFields", ["course_id", "name", "credit"])
 
     def __init__(self):
         self.courses = {}
@@ -30,38 +30,17 @@ class CourseManager:
         return [c for c in self.courses.values() if kw.lower() in c.name.lower()]
 
     def save(self, path=None):
-        path = path or CourseManager._CoursePath
+        path = path or CourseManager._COURSE_PATH
         file_handler.write_csv(
             str(path),
             CourseManager._CourseFields._fields,
-            (c for c in self.course.values()),
+            (c for c in self.courses.values()),
         )
 
-    def load(self, path):
-        path = path or CourseManager._CoursePath
+    def load(self, path=None):
+        path = path or CourseManager._COURSE_PATH
         file_handler.read_csv(
             str(path),
             CourseManager._CourseFields._fields,
-            (c for c in self.course.values()),
+            *(c for c in self.courses.values()),
         )
-
-    # def create(self):
-    #     pass
-
-    # def read(self):
-    #     pass
-
-    # def update(self):
-    #     pass
-
-    # def delete(self):
-    #     pass
-
-    # def search(self):
-    #     pass
-
-    # def search_credit(self):
-    #     pass
-
-    # def save(self):
-    #     pass
