@@ -35,10 +35,8 @@ class StudentManager:
     def search_by_name(self, keyword):
         keyword = keyword.lower()
 
-        result = (
-            s.to_row() for s in self.students.values() if keyword in s.name.lower()
-        )
-        return list(result)
+        result = [s for s in self.students.values() if keyword in s.name.lower()]
+        return result
 
     def add(self, student: Student):
         if student.sid in self.students:
@@ -65,6 +63,20 @@ class StudentManager:
         self.by_years[studs.year].remove(studs)
         self.count_major[studs.major] -= 1
 
+    def top_n(self, n=5, reverse=True):
+        student_value = self.students.values()
+        if reverse:
+            return sorted(student_value, key=lambda x: x.gpa, reverse=True)[:n]
+        return sorted(student_value, key=lambda x: x.gpa)[:n]
+
+    def avg_gpa_by_year(self):
+        result = {}
+        for year, lst in self.by_years.items():
+            if lst:
+                result[year] = round(sum(s.gpa for s in lst) / len(lst), 2)
+        result = {k: result[k] for k in sorted(result, reverse=True)}
+        return result
+
     def save(self, path=None):
         path = path or StudentManager._STUDENT_PATH
         file_handler.write_csv(
@@ -78,22 +90,7 @@ class StudentManager:
         rows = file_handler.read_csv(path, StudentManager.StudentsFields._fields)
         for row in rows:
             try:
-                row_field = StudentManager.StudentsFields(**row)
-                s = Student(
-                    row_field.sid,
-                    row_field.name,
-                    row_field.dob,
-                    row_field.email,
-                    row_field.major,
-                    row_field.year,
-                    row_field.gpa,
-                )
+                s = Student(**row)
                 self.add(s)
             except Exception as e:
                 print(f"[WARN] Skip bad row: {e}")
-
-    def top_n(self, n=5, reverse=True):
-        student_value = self.students.values()
-        if reverse:
-            return sorted(student_value, key=lambda x: x.gpa, reverse=True)[:n]
-        return sorted(student_value, key=lambda x: x.gpa)[:n]
