@@ -10,7 +10,7 @@ from models.student import Student
 
 class StudentManager:
     _STUDENT_PATH = ProjectPath.DATA_PATH / "students.csv"
-    _StudentFields = namedtuple(
+    StudentsFields = namedtuple(
         "StudentFields", ("sid", "name", "dob", "email", "major", "year", "gpa")
     )
 
@@ -26,6 +26,9 @@ class StudentManager:
             raise StudentNotFoundException(sid)
 
     def show(self):
+        if not self.students:
+            print("Student is empty")
+
         for student in self.students.values():
             print(repr(student))
 
@@ -60,22 +63,22 @@ class StudentManager:
 
         studs = self.students.pop(sid)
         self.by_years[studs.year].remove(studs)
-        self.count_major -= 1
+        self.count_major[studs.major] -= 1
 
     def save(self, path=None):
         path = path or StudentManager._STUDENT_PATH
         file_handler.write_csv(
             str(path),
-            StudentManager._StudentFields._fields,
+            StudentManager.StudentsFields._fields,
             (s.to_row() for s in self.students.values()),
         )
 
     def load(self, path=None):
         path = path or StudentManager._STUDENT_PATH
-        rows = file_handler.read_csv(path, StudentManager._StudentFields._fields)
+        rows = file_handler.read_csv(path, StudentManager.StudentsFields._fields)
         for row in rows:
             try:
-                row_field = StudentManager._StudentFields(**row)
+                row_field = StudentManager.StudentsFields(**row)
                 s = Student(
                     row_field.sid,
                     row_field.name,

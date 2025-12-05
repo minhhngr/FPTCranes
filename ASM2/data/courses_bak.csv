@@ -1,0 +1,101 @@
+course_id,name,credit
+C001,Statistics 3,4
+C002,Software Engineering 2,4
+C003,Cloud Computing 2,3
+C004,System Design 4,3
+C005,Mobile Development 5,4
+C006,Python Programming 2,2
+C007,Operating Systems 4,5
+C008,Deep Learning 3,2
+C009,System Design 4,4
+C010,Computer Graphics 2,4
+C011,Cybersecurity 2,2
+C012,Web Development 1,5
+C013,Cybersecurity 3,5
+C014,Deep Learning 4,2
+C015,Computer Graphics 1,5
+C016,Algorithms 3,3
+C017,Mobile Development 2,2
+C018,Database Systems 2,5
+C019,Python Programming 1,3
+C020,Cybersecurity 5,2
+C021,Data Structures 4,2
+C022,Cybersecurity 2,3
+C023,System Design 2,2
+C024,Algorithms 2,4
+C025,Computer Graphics 1,2
+C026,Linear Algebra 3,2
+C027,Python Programming 1,4
+C028,Database Systems 3,2
+C029,Web Development 3,3
+C030,Algorithms 1,5
+C031,Python Programming 5,5
+C032,Software Engineering 3,3
+C033,Cybersecurity 5,4
+C034,Linear Algebra 3,4
+C035,Database Systems 3,2
+C036,Python Programming 1,3
+C037,Statistics 2,4
+C038,Operating Systems 3,5
+C039,Big Data 5,4
+C040,Computer Networks 2,5
+C041,Mobile Development 3,2
+C042,Data Structures 2,2
+C043,AI Fundamentals 5,5
+C044,Algorithms 4,2
+C045,Data Structures 3,4
+C046,Computer Graphics 2,4
+C047,AI Fundamentals 5,5
+C048,Web Development 2,5
+C049,Deep Learning 3,4
+C050,System Design 3,4
+C051,Deep Learning 5,2
+C052,Database Systems 3,2
+C053,Python Programming 4,5
+C054,Computer Graphics 4,5
+C055,Database Systems 5,5
+C056,Linear Algebra 2,4
+C057,AI Fundamentals 1,2
+C058,Algorithms 4,3
+C059,Software Engineering 2,3
+C060,Mobile Development 2,2
+C061,Cloud Computing 2,4
+C062,Software Engineering 5,3
+C063,Algorithms 5,5
+C064,Machine Learning 5,3
+C065,Mobile Development 1,3
+C066,Big Data 3,5
+C067,Statistics 4,3
+C068,Operating Systems 2,3
+C069,Computer Graphics 5,2
+C070,Deep Learning 4,5
+C071,Computer Networks 1,5
+C072,Statistics 4,3
+C073,AI Fundamentals 3,5
+C074,Database Systems 1,3
+C075,Data Structures 4,5
+C076,Cybersecurity 4,5
+C077,Software Engineering 5,3
+C078,Statistics 2,4
+C079,Machine Learning 3,4
+C080,System Design 4,4
+C081,Calculus 2,3
+C082,Web Development 4,5
+C083,System Design 1,5
+C084,Operating Systems 5,4
+C085,Mobile Development 4,4
+C086,Web Development 1,2
+C087,Software Engineering 4,3
+C088,Operating Systems 5,5
+C089,Deep Learning 4,4
+C090,Computer Graphics 3,2
+C091,Machine Learning 1,4
+C092,Cybersecurity 5,5
+C093,Algorithms 1,3
+C094,Operating Systems 1,3
+C095,Computer Networks 3,3
+C096,Algorithms 1,4
+C097,Computer Networks 3,4
+C098,System Design 3,4
+C099,System Design 3,4
+C100,Python Programming 1,5
