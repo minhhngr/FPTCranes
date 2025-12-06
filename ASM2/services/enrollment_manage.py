@@ -22,9 +22,6 @@ class EnrollmentManager:
         for enrollment in self.enrollments.values():
             print(repr(enrollment))
 
-    def get_courses_of_student(self, sid):
-        return self.enrollments.get(sid, [])
-
     def enroll(self, enroll: Enrollment, save_history=True):
         self.enrollments.setdefault(enroll.student_id, []).append(enroll)
         self.count_course[enroll.course_id] += 1
@@ -54,6 +51,9 @@ class EnrollmentManager:
             return
 
         return round(sum(e.mark for e in lst) / len(lst), 2)
+
+    def get_courses_of_student(self, sid):
+        return self.enrollments.get(sid, [])
 
     def save(self, path=None):
         path = path or EnrollmentManager._ENROLL_PATH

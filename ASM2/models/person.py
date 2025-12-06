@@ -39,7 +39,7 @@ class Person:
         fmt = "%Y-%m-%d"
         try:
             _ = datetime.datetime.strptime(value, fmt)
-        except:
+        except Exception:
             raise InvalidDateException(
                 f"Invalid date format should be: {value} (%Y-%m-%d)"
             )

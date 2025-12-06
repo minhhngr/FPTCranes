@@ -28,3 +28,7 @@ class StudentNotFoundException(Exception):
 
 class CourseNotFoundException(Exception):
     pass
+
+
+class DuplicateCourseException(Exception):
+    pass

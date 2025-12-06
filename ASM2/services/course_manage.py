@@ -2,7 +2,7 @@ from collections import namedtuple
 
 from common.config import ProjectPath
 from utils import file_handler
-from models.exceptions import CourseNotFoundException
+from models.exceptions import CourseNotFoundException, DuplicateCourseException
 from models.course import Course
 
 
@@ -21,17 +21,30 @@ class CourseManager:
             print(repr(courses))
 
     def add(self, course: Course):
+        try:
+            cid = self.courses[course.course_id]
+            if cid:
+                raise DuplicateCourseException("Duplicate course")
+        except DuplicateCourseException as dce:
+            print(dce)
+            return
+        except Exception:
+            pass
+
         self.courses[course.course_id] = course
 
-    def update(self, cid, **kwargs):
-        if cid not in self.courses:
-            raise CourseNotFoundException(cid)
+    def update(self, cid, *, course: Course):
+        try:
+            for k, v in vars(course).items():
+                setattr(self.courses[cid], k, v)
+        except CourseNotFoundException:
+            print("Course not found")
 
-        for k, v in kwargs.items():
-            setattr(self.courses[cid], k, v)
-
-    def remove(self):
-        pass
+    def remove(self, cid):
+        try:
+            self.courses.pop(cid)
+        except Exception:
+            print("Course not found")
 
     def search_by_credit(self, credit):
         return [c for c in self.courses.values() if c.credit == credit]

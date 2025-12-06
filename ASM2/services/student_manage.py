@@ -10,9 +10,7 @@ from models.student import Student
 
 class StudentManager:
     _STUDENT_PATH = ProjectPath.DATA_PATH / "students.csv"
-    StudentsFields = namedtuple(
-        "StudentFields", ("sid", "name", "dob", "email", "major", "year", "gpa")
-    )
+    StudentsFields = namedtuple("StudentFields", ("sid", "name", "dob", "email", "major", "year", "gpa"))
 
     def __init__(self):
         self.students = OrderedDict()
@@ -32,15 +30,16 @@ class StudentManager:
         for student in self.students.values():
             print(repr(student))
 
-    def search_by_name(self, keyword):
-        keyword = keyword.lower()
-
-        result = [s for s in self.students.values() if keyword in s.name.lower()]
-        return result
-
     def add(self, student: Student):
-        if student.sid in self.students:
-            raise DuplicateStudentException(student.sid)
+        try:
+            sid = self.students[student.sid]
+            if sid:
+                raise DuplicateStudentException("Duplicate Student")
+        except DuplicateStudentException as dse:
+            print(dse)
+            return
+        except Exception:
+            pass
 
         self.students[student.sid] = student
         self.by_years[student.year].append(student)
@@ -62,6 +61,12 @@ class StudentManager:
         studs = self.students.pop(sid)
         self.by_years[studs.year].remove(studs)
         self.count_major[studs.major] -= 1
+
+    def search_by_name(self, name, /):
+        name = name.lower()
+
+        result = [s for s in self.students.values() if name in s.name.lower()]
+        return result
 
     def top_n(self, n=5, reverse=True):
         student_value = self.students.values()

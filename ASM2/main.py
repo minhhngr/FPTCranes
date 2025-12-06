@@ -1,3 +1,5 @@
+from contextlib import suppress
+from models.course import Course
 from common.common import find_course_by_id, find_student_by_id
 from models.enrollment import Enrollment
 from utils.validators import catch_exception
@@ -23,6 +25,11 @@ MENU = (
     "Save all data to CSV",
     "Show average GPA by year",
     "Show student GPA based on enrolled courses",
+    "Show Courses",
+    "Add Courses",
+    "Update Courses",
+    "Remove Courses",
+    "Show Enrollment",
 )
 
 menu_selector = {str(k): v for k, v in enumerate(MENU)}
@@ -75,7 +82,8 @@ if __name__ == "__main__":
             for k, msg in add_fields:
                 catch_exception(lambda: setattr(stu, k, input(f"Input > {msg}: ")))
 
-            student_manage.add(stu)
+            with suppress(Exception):
+                student_manage.add(stu)
 
         # -----------------------------------------------------------
         # Remove student
@@ -101,8 +109,7 @@ if __name__ == "__main__":
                     lambda: setattr(
                         student,
                         field,
-                        input(f"Inptut > {msg} [{getattr(student, field)}]: ")
-                        or getattr(student, field),
+                        input(f"Input > {msg} [{getattr(student, field)}]: ") or getattr(student, field),
                     )
                 )
 
@@ -211,6 +218,55 @@ if __name__ == "__main__":
             sid = input("Student id: ")
             result = enrollment_manage.avg_mark(sid)
             print(f"Avg (GPA): {result}")
+
+        # -----------------------------------------------------------
+        # Show course
+        # -----------------------------------------------------------
+        elif choice == "16":
+            course_manage.show()
+
+        # -----------------------------------------------------------
+        # Add course
+        # -----------------------------------------------------------
+        elif choice == "17":
+            with suppress(Exception):
+                course_manage.add(
+                    Course(
+                        course_id=input("Input > Course ID: "),
+                        name=input("Input > Name: "),
+                        credit=input("Input > Credit: "),
+                    )
+                )
+
+        # -----------------------------------------------------------
+        # Update course
+        # -----------------------------------------------------------
+        elif choice == "18":
+            cour_cm = find_course_by_id(course_manage)
+            if not cour_cm:
+                continue
+
+            course_manage.update(
+                cour_cm.course_id,
+                course=Course(
+                    course_id=cour_cm.course_id,
+                    name=input(f"Input > Name ({cour_cm.name}): "),
+                    credit=input(f"Input > Credit ({cour_cm.credit}): "),
+                ),
+            )
+
+        # -----------------------------------------------------------
+        # Remove course
+        # -----------------------------------------------------------
+        elif choice == "19":
+            with suppress(Exception):
+                course_manage.remove(input("Input > Course ID: "))
+
+        # -----------------------------------------------------------
+        # Show Enrollment
+        # -----------------------------------------------------------
+        elif choice == "20":
+            enrollment_manage.show()
 
         else:
             print("Invalid your input, please input again")

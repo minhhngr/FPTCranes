@@ -61,14 +61,14 @@ class Student(Person):
 
     # Dunder Method #
 
-    def __str__(self):
-        return f"{self._sid}, {self._name}"
-
-    def __repr__(self):
-        return f"Student({", ".join(str(r) for r in self.to_row())})"
-
     def __lt__(self, other):
         return self._gpa < other.gpa
 
     def __gt__(self, other):
         return self._gpa > other.gpa
+
+    def __str__(self):
+        return f"{self._sid}, {self._name}"
+
+    def __repr__(self):
+        return f"Student({", ".join(str(r) for r in self.to_row())})"

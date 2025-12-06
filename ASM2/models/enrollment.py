@@ -35,8 +35,8 @@ class Enrollment:
             if not (0 <= value <= 10):
                 raise InvalidMarkException(value)
             self._mark = value
-        except Exception:
-            raise ValueError(value)
+        except Exception as e:
+            print(e)
 
     def to_row(self):
         return [self._student_id, self._course_id, self._mark]
@@ -45,8 +45,4 @@ class Enrollment:
         return f"{self._student_id}, {self._course_id}, {self._mark}"
 
     def __repr__(self):
-        return (
-            f"Enrollment(student_id ={self._student_id}, "
-            f"course_id={self._course_id}, "
-            f"mark={self._mark})"
-        )
+        return f"Enrollment(student_id={self._student_id}, " f"course_id={self._course_id}, " f"mark={self._mark})"
